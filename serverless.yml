@@ -1,0 +1,16 @@
+service: aws-s3-practice
+frameworkVersion: '3'
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-west-1
+  stage: ${opt:stage, self:custom.defaultStage}
+  timeout: 30 
+   
+custom:
+  defaultStage: test
+
+plugins:
+  - serverless-esbuild 
+  - serverless-offline
