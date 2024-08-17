@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: aws-s3-practice
+  description: simple service to practice with s3
+servers:
+  - url: 'http://localhost:3000/test/'
+
+paths:
+  /user/image/initiate-upload:
+    post:
+      summary: 'Updates personal information and requests new score'
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserinitiateUploadRequest'
+      responses:
+        '201':
+          description: 'Personal information was updated and new scores have been requested if needed'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserinitiateUploadResponse'
+        '400':
+          description: 'Request payload is invalid'
+        '500':
+          description: 'server error'
+components:
+  schemas:
+    UserinitiateUploadRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          example: dummy_photo
+        description:
+          type: string
+          example: profile photo
+        contentType:
+          type: string
+          example: image/png
+          enum:
+            - image/png
+            - mage/jpeg
+            - image/jpg
+    UserinitiateUploadResponse:
+      type: object
+      properties:
+        isFailed:
+          type: boolean
+          example: false
+        signedUrl:
+          type: string
+          example: 'example.com'

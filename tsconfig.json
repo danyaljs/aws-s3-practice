@@ -1,13 +1,16 @@
 {
-    "compilerOptions": {
-      "lib": ["ES2022"],
-      "module": "ES2022",
-      "moduleResolution": "Bundler",
-      "allowSyntheticDefaultImports": true,
-      "sourceMap": true,
-      "target": "ES2022",
-      "strict": true,
-      "noImplicitAny": true   
-    },
-    "include": ["src/**/*.ts"],
-  }
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "target": "ES2022",
+    "strict": true,
+    "allowJs": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true
+  },
+  "include": ["src/**/*.ts"],
+}

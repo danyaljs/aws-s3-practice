@@ -6,11 +6,36 @@ provider:
   runtime: nodejs18.x
   region: eu-west-1
   stage: ${opt:stage, self:custom.defaultStage}
-  timeout: 30 
-   
+  timeout: 30
+  lambdaHashingVersion: 20201221
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - 's3:PutObject'
+        - 's3:PutObjectAcl'
+      Resource: '*'
+  environment:
+    AWS_S3_IMAGE_BUCKET: ${self:custom.envVars.AWS_S3_IMAGE_BUCKET}
+    DUMMY_TEST_SECRECT: testSecret
+
 custom:
   defaultStage: test
+  envVars: ${file(./serverless-env.yml):envVar-${self:provider.stage}}
 
 plugins:
-  - serverless-esbuild 
+  - serverless-webpack
   - serverless-offline
+
+package:
+  individually: true
+
+functions:
+  generatePhotoSignedUrl:
+    handler: src/app/controllers/userController.generatePhotoSignedUrl
+    name: ${self:service}-generatePhotoSignedUrl-${self:provider.stage}
+    description: endPoint used to generate s3 signed url for uploading photo
+    events:
+      - http:
+          path: /user/image/initiate-upload
+          method: post
+          cors: true

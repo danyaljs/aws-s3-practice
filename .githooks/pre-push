@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+if [ "$NO_VERIFY" ]; then
+    echo 'pre-commit hook skipped' 1>&2
+    exit 0
+fi
+
+LC_ALL=C
+
+local_branch="$(git rev-parse --abbrev-ref HEAD)"
+branch_name_length=${#local_branch}
+
+valid_branch_regex="^(feature|bugfix|improvement|library|release|hotfix)\/[a-z0-9._-]+$"
+
+message1="There is something wrong with your branch name. Branch names in this project must adhere to this contract: $valid_branch_regex. Your commit will be rejected. You should rename your branch to a valid name and try again."
+message2="There is something wrong with your branch name. Branch name contains more than 128 characters, You should rename your branch to a valid name and try again"
+
+if [[ ! $local_branch =~ $valid_branch_regex ]]
+then
+    echo "$message1"
+    exit 1
+fi
+
+if [[ $branch_name_length -gt 128 ]]
+then
+    echo "$message2"
+    exit 1
+fi
+
+npm test
