@@ -1,6 +1,6 @@
 node_modules
 src/coverage
 test-report.html
-.esbuild
 .DS_Store
 .vscode/
+.webpack

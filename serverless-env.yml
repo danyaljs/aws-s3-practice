@@ -1,0 +1,14 @@
+envVar-test:
+  APP_ENV: test
+  AWS_S3_IMAGE_BUCKET: dummyS3Bucket
+envVar-dev:
+  APP_ENV: dev
+  AWS_S3_IMAGE_BUCKET: dummyS3Bucket
+
+awsRegion:
+  test: eu-central-1
+  dev: ${aws:region}
+
+awsAccountId:
+  test: 123dummy89
+  dev: ${aws:accountId}
