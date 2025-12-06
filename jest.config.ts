@@ -13,7 +13,7 @@ const config: Config = {
       statements: 85,
     },
   },
-  collectCoverageFrom: ["**/*.ts", "!**/node_moduels/**"],
+  collectCoverageFrom: ["**/*.ts", "!**/node_modules/**"],
   testEnvironment: "node",
   rootDir: "src/",
   restoreMocks: true,

@@ -25,12 +25,12 @@ export class S3Service {
 
   constructor() {}
 
-  static me: S3Service;
-  public static instance = (): S3Service => {
-    if (!S3Service.me) {
-      S3Service.me = new S3Service();
-    }
+  private static _instance: S3Service;
 
-    return S3Service.me;
-  };
+  public static instance(): S3Service {
+    if (!S3Service._instance) {
+      S3Service._instance = new S3Service();
+    }
+    return S3Service._instance;
+  }
 }

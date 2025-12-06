@@ -23,7 +23,7 @@ export class ImageService {
     return `uploads/user_${userId}/${photoId}.${this.getFileSuffixForContentType(contentType)}`;
   }
 
-  private getFileSuffixForContentType(contentType: string) {
+  private getFileSuffixForContentType(contentType: SignUrlReqMimeType): string {
     switch (contentType) {
       case SignUrlReqMimeType.JPEG:
         return 'jpeg';
@@ -31,6 +31,8 @@ export class ImageService {
         return 'jpg';
       case SignUrlReqMimeType.PNG:
         return 'png';
+      default:
+        throw new Error(`Unsupported content type: ${contentType}`);
     }
   }
 
@@ -38,12 +40,12 @@ export class ImageService {
     this.s3Service = s3Service;
   }
 
-  static me: ImageService;
-  public static instance = (): ImageService => {
-    if (!ImageService.me) {
-      ImageService.me = new ImageService(S3Service.instance());
-    }
+  private static _instance: ImageService;
 
-    return ImageService.me;
-  };
+  public static instance(): ImageService {
+    if (!ImageService._instance) {
+      ImageService._instance = new ImageService(S3Service.instance());
+    }
+    return ImageService._instance;
+  }
 }

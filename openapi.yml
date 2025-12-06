@@ -45,7 +45,7 @@ components:
           example: image/png
           enum:
             - image/png
-            - mage/jpeg
+            - image/jpeg
             - image/jpg
     UserinitiateUploadResponse:
       type: object

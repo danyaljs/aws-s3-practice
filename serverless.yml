@@ -13,10 +13,11 @@ provider:
       Action:
         - 's3:PutObject'
         - 's3:PutObjectAcl'
-      Resource: '*'
+      Resource:
+        - 'arn:aws:s3:::${self:custom.envVars.AWS_S3_IMAGE_BUCKET}/*'
   environment:
     AWS_S3_IMAGE_BUCKET: ${self:custom.envVars.AWS_S3_IMAGE_BUCKET}
-    DUMMY_TEST_SECRECT: testSecret
+    DUMMY_TEST_SECRET: testSecret
 
 custom:
   defaultStage: test
