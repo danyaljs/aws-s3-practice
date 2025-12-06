@@ -1,6 +1,11 @@
-node_modules
-src/coverage
+node_modules/
+.serverless/
+.webpack/
+coverage/
+src/coverage/
 test-report.html
+*.log
+.env
+.env.*
 .DS_Store
 .vscode/
-.webpack
